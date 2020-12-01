@@ -1,0 +1,115 @@
+package javapra;
+//Normal Queue Implementation
+
+class QueueA<T>{
+	T[] data;
+	int front,rear;
+	int length;
+	
+	QueueA(T[] a){
+		data=a;
+		front=0;
+		rear=-1;
+		length=a.length;
+	}
+	
+	public void enque(T a) {
+		if(rear>=length-1) 
+			System.out.println("fulled");
+		else {
+			rear++;
+			data[rear]=a;
+		}
+	}
+	
+	public  T deque() {
+		T x=null;
+		if(isEmpty()) {
+			System.out.println("empty");
+			return null;
+		}
+		else {
+			x=data[front];
+			front++;
+			return x;
+		}
+	}
+	
+	public boolean isEmpty(){
+		if(front>rear) 
+			return true;
+		else
+			return false;		
+	}
+	
+	public void printQueueA() {
+		if(!isEmpty()) {
+			for(int i=front;i<=rear;i++)
+				System.out.print(data[i]+" ");
+			System.out.println();
+		}
+	}
+}
+
+//processes Scheduling
+
+class process{
+	int time;
+	int index;
+	
+	process(int i,int t){
+		time=t;
+		index=i;
+	}
+	
+	void Print() {
+		System.out.println("Job:"+this.index+" time "+this.time);
+	}
+	
+}
+
+
+public class QueueApplication{
+	public static void main(String[] args) {
+		
+		//processes...
+		
+		process arr1=new process(1,5);
+		process arr2=new process(2,15);
+		process arr3=new process(3,10);
+		process arr4=new process(4,35);
+		process done;
+		
+		int totaltime=0;
+		process[] arr=new process[4];
+		QueueA<process> fcfs=new QueueA<>(arr);
+		
+		//entering...
+		
+		fcfs.enque(arr1);
+		fcfs.enque(arr2);
+		fcfs.enque(arr3);
+		fcfs.enque(arr4);
+		
+		System.out.println("Jobs Entering to Complete");
+		
+		done=fcfs.deque();
+		done.Print();
+		totaltime+=done.time;
+		
+		done=fcfs.deque();
+		done.Print();
+		totaltime+=done.time;
+		
+		done=fcfs.deque();
+		done.Print();
+		totaltime+=done.time;
+		
+		done=fcfs.deque();
+		done.Print();
+		totaltime+=done.time;
+		
+		System.out.println("Totaltime taken is:"+totaltime);
+		
+	} 
+}
